@@ -6,7 +6,7 @@ extends Node
 # var b = "text"
 var peer =  NetworkedMultiplayerENet.new()
 var ip = "127.0.0.1"
-var port = 1000;
+var port = 1025;
 
 #datas from server :
 var ball_info_json  = \
@@ -25,8 +25,9 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	_fetch_server_ball_info()
-	pass
+	var pongnode = get_parent()
+	_ReturnPlayersControl(pongnode.KEY_UP_pressed,pongnode.KEY_DOWN_pressed)
+	
 
 func _OnConnectionFailed():
 	print("connection failed")
@@ -37,19 +38,22 @@ func _OnConnect():
 func _server_input_event(event):
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_SPACE:
-			print(event)
 			rpc_id(1,"_StartGame")
-			
-func _fetch_server_ball_info():
-	rpc_id(1,"_fetch_server_ball_info")
 	
-remote func _return_ball_info(dx,dy,playing):
+remote func _return_server_ball_info(dx,dy,playing):
 	ball_info_json = \
 	"{"\
 	+"\"dx\" : \""  + str(dx)+"\","\
 	+"\"dy\" : \""  + str(dy)+"\","\
 	+"\"playing\" : \""  + str(playing)+"\""\
 	+"}"
+
+remote func _return_players_position(p1x,p1y,p2x,p2y):
+	get_parent()._setVariable(int(p1x),int(p2x),int(p1y),int(p2y))
+
+func _ReturnPlayersControl(KEY_UP_pressed,KEY_DOWN_pressed):
+	rpc_unreliable_id(1,"_ReturnPlayersControl",str(KEY_UP_pressed),str(KEY_DOWN_pressed))
+	pass
 	
 func get_ball_position():
 	return ball_info_json

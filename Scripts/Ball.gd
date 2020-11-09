@@ -24,8 +24,6 @@ func _physics_process(delta):
 	var ballinfo = JSON.parse(ball_info_json).result
 	self.position.x = int(ballinfo["dx"])
 	self.position.y = int(ballinfo["dy"])
-	print(ballinfo["dx"])
-	print(ballinfo["dy"])
 #		change_dy_on_wall_hit()
 #		self.rotation = 0
 #		self.linear_velocity = Vector2(dx, dy) * delta * speed

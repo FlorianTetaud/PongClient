@@ -5,11 +5,11 @@ var ball = BALL_NODE.instance()
 
 const DEFAULT_Y = 150
 
-const p1_x = 15
+var p1_x = 15
 var p1_y = DEFAULT_Y
 var p1_score = 0
 
-const p2_x = 975
+var p2_x = 975
 var p2_y = DEFAULT_Y
 var p2_score = 0
 
@@ -21,15 +21,15 @@ const SPACE_TO_PLAY = "Press SPACE to Play!"
 const P1_WIN = "Player 1 won!"
 const P2_WIN = "Player 2 won!"
 var message = SPACE_TO_PLAY
-
-
+var KEY_UP_pressed = false;
+var KEY_DOWN_pressed = false;
 # Called when the node enters the scene tree for the first time.
 
 
 func _ready():
 	set_ball()
-	$Player1.set_paddle_position(p1_x, p1_y)
-	$Player2.set_paddle_position(p2_x, p2_y)
+#	$Player1.set_paddle_position(p1_x, p1_y)
+#	$Player2.set_paddle_position(p2_x, p2_y)
 	display_message()
 	update_score()
 
@@ -43,13 +43,19 @@ func _input(_event):
 
 
 func _process(delta):
-	handle_movement_input(delta)
+	handle_movement_input()
 	$Player1.set_paddle_position(p1_x, p1_y)
 	$Player2.set_paddle_position(p2_x, p2_y)
 	#check_point_scored()
 	#handle_score_event()
 	handle_game_end()
 
+func _setVariable(var1x,var2x,var1y,var2y):
+	p1_x=var1x
+	p2_x=var2x
+	p1_y=var1y
+	p2_y=var2y
+	pass
 
 #func play():
 #	if game_done: # if game was done, reset states to start a fresh game
@@ -75,15 +81,15 @@ func _process(delta):
 #		game_done = true
 
 
-func handle_movement_input(delta):
-	if Input.is_key_pressed(KEY_W):
-		p1_y -= 300 * delta
-	if Input.is_key_pressed(KEY_S):
-		p1_y += 300 * delta
+func handle_movement_input():
 	if Input.is_key_pressed(KEY_UP):
-		p2_y -= 300 * delta
+		KEY_UP_pressed = true;
+		KEY_DOWN_pressed = false;
+		#p1_y -= 300 * delta
 	if Input.is_key_pressed(KEY_DOWN):
-		p2_y += 300 * delta
+		KEY_UP_pressed = false;
+		KEY_DOWN_pressed = true;
+		#p1_y += 300 * delta
 
 
 #func handle_score_event():
