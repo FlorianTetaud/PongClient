@@ -85,10 +85,15 @@ func handle_movement_input():
 	if Input.is_key_pressed(KEY_UP):
 		KEY_UP_pressed = true;
 		KEY_DOWN_pressed = false;
-		#p1_y -= 300 * delta
+		return true
 	if Input.is_key_pressed(KEY_DOWN):
 		KEY_UP_pressed = false;
 		KEY_DOWN_pressed = true;
+		return true
+	KEY_UP_pressed = false;
+	KEY_DOWN_pressed = false;
+	return false
+
 		#p1_y += 300 * delta
 
 

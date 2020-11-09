@@ -5,7 +5,7 @@ extends Node
 # var a = 2
 # var b = "text"
 var peer =  NetworkedMultiplayerENet.new()
-var ip = "127.0.0.1"
+var ip = "pixpong.ddns.net"
 var port = 1025;
 
 #datas from server :
