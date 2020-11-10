@@ -20,6 +20,10 @@ run/main_scene="res://Scenes/Main.tscn"
 run/frame_delay_msec=10
 config/icon="res://icon.png"
 
+[autoload]
+
+Helpers="*res://helpers.gd"
+
 [display]
 
 window/size/width=1000
