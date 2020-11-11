@@ -70,6 +70,7 @@ func ping_server():
 	if(!ping and connected and !pingrequest):
 		pingrequest = true
 		time_start = OS.get_ticks_msec()
+		print (time_start)
 		rpc_id(1,"ping")
 	else:
 		if(ping):
@@ -77,6 +78,7 @@ func ping_server():
 			ping =false
 			ping_value = OS.get_ticks_msec() - time_start
 			$Ping.text = "ping = "+str(ping_value);
+			print (ping_value)
 
 remote func _return_ping():
 	ping = true
