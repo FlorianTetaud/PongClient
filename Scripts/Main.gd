@@ -34,7 +34,7 @@ func _ready():
 
 func _input(_event):
 	if Input.is_key_pressed(KEY_SPACE):
-		get_node("Server")._server_input_event(_event)
+		get_parent()._server_input_event(_event)
 		#play()
 
 

@@ -18,8 +18,7 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	var PongNode =  get_parent()
-	var serverNode = PongNode.get_node("Server")
+	var serverNode =  get_tree().get_root().get_node("pong/Server")
 	var ball_info_json = serverNode.get_ball_position()
 	var ballinfo = JSON.parse(ball_info_json).result
 	self.position.x = int(ballinfo["dx"])

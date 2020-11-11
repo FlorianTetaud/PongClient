@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/LoggingInfo.gd" type="Script" id=1]
+[ext_resource path="res://Pictures/Logging.png" type="Texture" id=2]
+
+[node name="LoggingInfo" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logging" type="Sprite" parent="."]
+position = Vector2( 501.688, 302.022 )
+scale = Vector2( 2.07276, 1.87784 )
+texture = ExtResource( 2 )
+
+[node name="Name" type="TextEdit" parent="."]
+margin_left = 329.271
+margin_top = 105.868
+margin_right = 447.271
+margin_bottom = 142.868
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextName" type="TextEdit" parent="."]
+margin_left = 328.082
+margin_top = 68.0573
+margin_right = 445.082
+margin_bottom = 103.057
+text = "Loggin Name :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 474.432
+margin_top = 107.731
+margin_right = 656.432
+margin_bottom = 139.731
+text = "Press to enter a new game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LogInfo" type="TextEdit" parent="."]
+margin_left = 258.0
+margin_top = 441.0
+margin_right = 725.0
+margin_bottom = 593.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

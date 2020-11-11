@@ -1,90 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Paddle.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/fonts/m6x11.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Assets/audio/hitSound.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scenes/Server.gd" type="Script" id=5]
 
-[sub_resource type="DynamicFont" id=1]
-size = 64
-font_data = ExtResource( 3 )
-
-[node name="Pong" type="Node2D"]
-scale = Vector2( 0.987821, 0.982676 )
-script = ExtResource( 1 )
+[node name="pong" type="Node2D"]
 
 [node name="Server" type="Node" parent="."]
 script = ExtResource( 5 )
 
 [node name="Ping" type="Label" parent="Server"]
-margin_left = 202.491
-margin_top = 2.87873
-margin_right = 293.491
-margin_bottom = 30.8787
+margin_left = 445.0
+margin_top = 6.0
+margin_right = 558.0
+margin_bottom = 26.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Background" type="ColorRect" parent="."]
-margin_left = -7.5077
-margin_top = 1.07816
-margin_right = 1007.49
-margin_bottom = 616.078
-color = Color( 0.168627, 0.168627, 0.168627, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Player1" parent="." instance=ExtResource( 2 )]
-
-[node name="Player2" parent="." instance=ExtResource( 2 )]
-
-[node name="MiddleField" type="ColorRect" parent="."]
-margin_left = 508.0
-margin_top = -100.0
-margin_right = 512.0
-margin_bottom = 700.0
-color = Color( 0.690196, 0.662745, 0.662745, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DisplayMessage" type="Label" parent="."]
-margin_left = 226.0
-margin_top = 500.0
-margin_right = 774.0
-margin_bottom = 556.0
-custom_fonts/font = SubResource( 1 )
-text = "Press SPACE to start!"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Player1Score" type="Label" parent="."]
-margin_left = 430.0
-margin_top = 30.0
-margin_right = 472.0
-margin_bottom = 114.0
-custom_fonts/font = SubResource( 1 )
-text = "0"
-max_lines_visible = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Player2Score" type="Label" parent="."]
-margin_left = 552.0
-margin_top = 30.0
-margin_right = 594.0
-margin_bottom = 114.0
-custom_fonts/font = SubResource( 1 )
-text = "0"
-max_lines_visible = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScoreSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
