@@ -20,11 +20,8 @@ var port = 1025;
 var player_name =""
 var list_of_players =""
 
-var ping = false
-var pingrequest = false
 var connected = false
-var ping_value : float =  999;
-var ping_value_tmp : float = 0.00000
+
 #datas from server :
 var ball_info_json  = \
 	"{"\
@@ -44,7 +41,12 @@ func _ready():
 
 func _process(delta):
 	_control()
-	ping_server(delta)
+
+
+func _on_Timer_Ping_timeout():
+	ping_server()
+
+
 
 func _OnConnectionFailed():
 	print("connection failed to server")
@@ -53,29 +55,34 @@ func _OnConnectionFailed():
 func _OnConnect():
 	print("sucess to connect to server")
 	$LoggingInfo/LogInfo.text = "sucess to connect to server"
-
-
 	connected = true
 	
 
 	
 ########################### SERVER PING ########################################
-func ping_server(delta):
+var time_start = 0
+var ping = false
+var pingrequest = false
+var ping_value : float =  999;
+var ping_value_tmp : float = 0.00000
+
+func ping_server():
 	if(!ping and connected and !pingrequest):
 		pingrequest = true
-		ping_value_tmp=0
+		time_start = OS.get_ticks_msec()
+		print (time_start)
 		rpc_id(1,"ping")
 	else:
 		if(ping):
 			pingrequest =false
 			ping =false
-			ping_value = ping_value_tmp*1000
+			ping_value = OS.get_ticks_msec() - time_start
 			$Ping.text = "ping = "+str(ping_value);
-		else:
-			ping_value_tmp+=delta
+			print (ping_value)
 
 remote func _return_ping():
 	ping = true
+	ping_server()
 	
 ###########################SERVER LOBBY########################################
 func _Enter_lobby():
@@ -132,3 +139,4 @@ remote func _return_players_position(p1x,p1y,p2x,p2y):
 	if(get_node_or_null("GameInstance")):
 		$GameInstance._setVariable(int(p1x),int(p2x),int(p1y),int(p2y))
 	
+

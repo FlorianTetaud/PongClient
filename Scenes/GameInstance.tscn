@@ -75,3 +75,10 @@ __meta__ = {
 
 [node name="ScoreSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+
+[node name="Ping" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

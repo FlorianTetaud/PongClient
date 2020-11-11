@@ -42,6 +42,7 @@ func _process(delta):
 	handle_movement_input()
 	$Player1.set_paddle_position(p1_x, p1_y)
 	$Player2.set_paddle_position(p2_x, p2_y)
+	$Ping.text = "Ping : " + str(get_parent().ping_value)
 
 
 func _setVariable(var1x,var2x,var1y,var2y):
