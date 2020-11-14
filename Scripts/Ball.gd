@@ -35,7 +35,7 @@ func _physics_process(delta):
 #		speed += 5
 #	if y_range < 200:
 #		y_range += 5
-#	$PaddleHitSound.play()
+#
 #
 #
 #func change_dy_on_wall_hit():
@@ -47,3 +47,8 @@ func _physics_process(delta):
 #
 #func set_playing(_playing):
 #	playing = _playing
+
+
+func _ball_hit_player(PlayerNumber):
+	$PaddleHitSound.play()
+	pass # Replace with function body.

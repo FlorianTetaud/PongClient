@@ -116,7 +116,10 @@ func _control():
 		
 func get_ball_position():
 	return ball_info_json
-	
+
+remote func _return_ball_hit(player_number):
+	$GameInstance/Ball._ball_hit_player(player_number)
+
 func _ReturnPlayersControl(KEY_UP_pressed,KEY_DOWN_pressed):
 	rpc_unreliable_id(1,"_ReturnPlayersControl",str(KEY_UP_pressed),str(KEY_DOWN_pressed))
 
