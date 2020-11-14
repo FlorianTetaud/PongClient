@@ -1,11 +1,15 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scenes/Server.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Server.gd" type="Script" id=5]
 
 [node name="pong" type="Node2D"]
 
-[node name="Server" type="Node" parent="."]
+[node name="Server" type="Node2D" parent="."]
 script = ExtResource( 5 )
+
+[node name="Timer_Ping" type="Timer" parent="Server"]
+wait_time = 2.0
+autostart = true
 
 [node name="Ping" type="Label" parent="Server"]
 margin_left = 445.0
@@ -15,8 +19,3 @@ margin_bottom = 26.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Timer_Ping" type="Timer" parent="Server"]
-wait_time = 2.0
-autostart = true
-[connection signal="timeout" from="Server/Timer_Ping" to="Server" method="_on_Timer_Ping_timeout"]
