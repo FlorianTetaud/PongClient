@@ -19,3 +19,4 @@ margin_bottom = 26.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="timeout" from="Server/Timer_Ping" to="Server" method="_on_Timer_Ping_timeout"]

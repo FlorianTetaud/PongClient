@@ -12,9 +12,9 @@ var gameInstance = gameInstance_NODE.instance()
 # var a = 2
 # var b = "text"
 var peer =  NetworkedMultiplayerENet.new()
-var ip = "pixpong.ddns.net"
+#var ip = "pixpong.ddns.net"
 #var ip = "5.48.149.215"
-#var ip = "127.0.0.1"
+var ip = "127.0.0.1"
 var port = 1025;
 
 var player_name =""
@@ -27,7 +27,8 @@ var ball_info_json  = \
 	"{"\
 	+"\"dx\" : \""  + str(0)+"\","\
 	+"\"dy\" : \""  + str(0)+"\","\
-	+"\"playing\" : \""  + str(false)+"\""\
+	+"\"playing\" : \""  + str(false)+"\","\
+	+"\"deltatime\" : \""  + str(0)+"\""\
 	+"}"
 
 # Called when the node enters the scene tree for the first time.
@@ -70,7 +71,6 @@ func ping_server():
 	if(!ping and connected and !pingrequest):
 		pingrequest = true
 		time_start = OS.get_ticks_msec()
-		print (time_start)
 		rpc_id(1,"ping")
 	else:
 		if(ping):
@@ -130,16 +130,36 @@ remote func _return_score_info(p1score,p2score):
 remote func _return_DisplayMessage(message,visible):
 	if(get_node_or_null("GameInstance")):
 		$GameInstance.display_message(message,visible)
-	
-remote func _return_server_ball_info(dx,dy,playing):
-	ball_info_json = \
-	"{"\
-	+"\"dx\" : \""  + str(dx)+"\","\
-	+"\"dy\" : \""  + str(dy)+"\","\
-	+"\"playing\" : \""  + str(playing)+"\""\
-	+"}"
+
+var last_time_return_server_ball_info = 0
+var get_first_deltatime= false
+var time_return_server_ball_info1
+var time_return_server_ball_info
+
+remote func _return_server_ball_info(time,dx,dy,playing):
+	if(!get_first_deltatime):
+		time_return_server_ball_info1 = time
+		get_first_deltatime = true
+	time_return_server_ball_info =  time - time_return_server_ball_info1
+		
+	if(_drop(time_return_server_ball_info,last_time_return_server_ball_info)):
+		var deltatime = time_return_server_ball_info - last_time_return_server_ball_info 
+		ball_info_json = \
+		"{"\
+		+"\"dx\" : \""  + str(dx)+"\","\
+		+"\"dy\" : \""  + str(dy)+"\","\
+		+"\"playing\" : \""  + str(playing)+"\","\
+		+"\"deltatime\" : \""  + str(deltatime)+"\""\
+		+"}"
+		last_time_return_server_ball_info = time_return_server_ball_info
+		
 remote func _return_players_position(p1x,p1y,p2x,p2y):
 	if(get_node_or_null("GameInstance")):
 		$GameInstance._setVariable(int(p1x),int(p2x),int(p1y),int(p2y))
-	
 
+########################### CUSTOM FUNCTIONS ########################################
+func _drop(time, last_time):
+	if(time>last_time):
+		return true
+	else:
+		return false
